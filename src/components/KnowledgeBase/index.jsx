@@ -4,7 +4,7 @@ import KnowledgeBaseCard from './KnowledgeBaseCard';
 import Pagination from '../ui/Pagination';
 import Button from '../ui/Button';
 
-const KnowledgeBaseList = ({ cards, onCreateNewClick, searchQuery, setSearchQuery }) => {
+const KnowledgeBaseList = ({ cards, onCreateNewClick, onEditClick, onDeleteClick, searchQuery, setSearchQuery }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -55,6 +55,8 @@ const KnowledgeBaseList = ({ cards, onCreateNewClick, searchQuery, setSearchQuer
                 description={card.description}
                 date={card.date}
                 searchQuery={searchQuery}
+                onEdit={() => onEditClick(card)}
+                onDelete={() => onDeleteClick(card.title)}
               />
             ))
           ) : (

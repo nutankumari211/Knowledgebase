@@ -1,15 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from '../ui/Modal';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
 import Select from '../ui/Select';
 
-const CreateNewModal = ({ isOpen, onClose, onAddCard }) => {
+const CreateNewModal = ({ isOpen, onClose, onSubmit, editData }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [vectorStore, setVectorStore] = useState('Qdrant');
   const [llm, setLlm] = useState('text-embedding-ada-002');
   const [error, setError] = useState('');
+
+  // Lock and pre-fill form when editData arrives
+  useEffect(() => {
+    if (editData && isOpen) {
+      setName(editData.title);
+      setDescription(editData.description === 'No description provided.' ? '' : editData.description);
+      // In a real app, vectorStore/llm would be on editData. For now we use defaults.
+      setError('');
+    } else if (!isOpen) {
+      // Reset form when closed
+      setName('');
+      setDescription('');
+      setVectorStore('Qdrant');
+      setLlm('text-embedding-ada-002');
+      setError('');
+    }
+  }, [editData, isOpen]);
 
   const handleClose = () => {
     setName('');
@@ -25,9 +42,9 @@ const CreateNewModal = ({ isOpen, onClose, onAddCard }) => {
     }
 
     const today = new Date();
-    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
+    const formattedDate = editData?.date || `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
 
-    onAddCard({
+    onSubmit({
       title: name,
       description: description.trim() || 'No description provided.',
       date: formattedDate
@@ -40,13 +57,13 @@ const CreateNewModal = ({ isOpen, onClose, onAddCard }) => {
     <Modal
       isOpen={isOpen}
       onClose={handleClose}
-      title="Create New Knowledge Base"
+      title={editData ? "Update Knowledge Base" : "Create New Knowledge Base"}
       description="Best for quick answers from documents, websites and text files."
       footer={
         <div className="flex items-center gap-4">
           {error && <span className="text-red-500 text-xs font-medium">{error}</span>}
           <Button onClick={handleCreate} className="px-6">
-            Create
+            {editData ? "Update" : "Create"}
           </Button>
         </div>
       }
@@ -57,6 +74,7 @@ const CreateNewModal = ({ isOpen, onClose, onAddCard }) => {
           hint="(Cannot be edited later)"
           required
           value={name}
+          disabled={!!editData}
           onChange={(e) => {
             setName(e.target.value);
             if (error) setError('');

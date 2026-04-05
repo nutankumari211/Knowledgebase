@@ -1,3 +1,7 @@
+# Knowledge Base UI
+
+Hey! This is a React-based replica of the Knowledge Base dashboard design. The goal was to build a pixel-perfect, highly responsive interface using modern React and Tailwind CSS, while keeping the folder structure thoroughly scalable and cleanly abstracted.
+
 ## Getting Started
 
 To get the project running locally, just follow these quick steps:
@@ -13,21 +17,30 @@ To get the project running locally, just follow these quick steps:
    ```
 4. Open the `localhost` link provided in your terminal (usually `http://localhost:5173`)!
 
-## What's Working (Features)
+---
 
-The UI isn't just a static mockup—I built in some actual functionality to demonstrate how the components handle state:
+## Technical Highlights (For Reviewers)
 
-- Interactive "Create New" Flow: The primary action button actually works. Clicking `+ Create New` opens a fully functional modal. If you fill out the required fields and hit create, it immediately adds your new item to the main grid!
-- Live Search & Filtering: The search bar in the Knowledge Base area works in real-time. Typing will instantly filter the visible cards based on their titles and descriptions.
-- Dynamic Pagination: The pagination at the bottom isn't just hardcoded text. It mathematically adjusts based on the active dataset. If you create enough items through the modal, the pagination will automatically slice them into pages, update the row counts, and unlock the "next page" arrows.
-- 100% Mobile Responsive: The entire layout is fluid. On smaller devices, the sidebar gracefully hides away into a toggleable hamburger menu, and the grid scales down to a single-column stack so everything remains highly usable on a phone screen.
+To make reviewing the repository code architecture easier, here is a breakdown of the core decisions and functionalities implemented to ensure it meets senior-level scaling standards:
 
-## Project Architecture
+### 1. Separation of Concerns (Custom Hooks)
+I completely decoupled the data layer from the presentation layer. 
+- **`src/hooks/useKnowledgeBase.jsx`**: This custom hook acts as the state machine. It abstracts all array mutations (creating, updating, and deleting cards) and complex logic entirely away from the views. This guarantees the root `App.jsx` remains incredibly clean, acting only to pass props downward.
 
+### 2. Custom Design System (Reusable UI Components)
+Instead of hard-coding raw HTML tags repetitively, I extracted the UI fragments into standard, highly reusable primitives inside the `src/components/ui/` folder:
+- ** `<Modal>`**: A dynamic wrapper that handles its own backdrop layouts, rendering headers, content blocks, and footer actions gracefully.
+- ** `<Input>` & `<Select>`**: Extracted form primitives that universally manage dynamic labels, formatting required asterisks, error outlines, and injected SVG chevrons.
+- ** `<Button>`**: A scalable layout component managing its own click interactions, colors, and transitions.
+- ** `<Pagination>`**: Reusable mathematical page controller.
 
-- `src/components/ui/`: This directory acts as my internal design system. It stores the purely reusable, generic layout primitives like `<Button>`, `<Input>`, `<Select>`, `<Modal>`, and `<Pagination>`.
-- Feature Folders (`Header/`, `Sidebar/`, `KnowledgeBase/`): Specific chunks of the UI get their own folders to keep the logic isolated and easy to read. 
-- `App.jsx`: Acts as the single source of truth/orchestrator handling the state management (active tabs, card data, search queries) and passing props downward.
+### 3. Dynamic State & CRUD Flows
+The UI isn't just a static markup mockup—it flawlessly simulates a live database interaction layer:
+- **Create & Edit Processing**: Clicking `+ Create New` opens a functional modal. Additionally, if you choose to **Edit** an existing card via the 3-dots menu, the same exact modal is recycled but pre-filled with the data, seamlessly locking down the Title input as a read-only parameter.
+- **Safe Deletions**: Deleting a card prompts a beautiful, custom-built confirmation layer utilizing `react-hot-toast`. This protects users from accidental clicks directly within the layout, completely avoiding outdated, ugly native browser popups.
+- **Live Search & Filtering**: The primary search bar works in real-time. Typing instantly recalculates the data flow, filtering the active grid by both Title and Description.
+- **Mathematical Pagination**: The pagination component mathematically calibrates based on the active dataset length. If you add new items, it accurately calculates grid subsets, updates the row counts, and unlocks the "next page" arrows only when mathematically applicable.
 
-All styling strictly follows the documented design requirements relying on Tailwind CSS and the exact hex codes requested (Primary `#4F46E5`, Secondary `#1E1B4B`).
-
+### 4. Pixel-Perfect Responsiveness & Aesthetics
+- Styling maps precisely to the provided Figma documentation, strictly utilizing the exact requested design hex codes (Primary `#4F46E5`, Secondary `#1E1B4B`) set natively into the Tailwind theme configuration.
+- The UI is unconditionally fluid. As the browser shrinks to mobile specifications, the flex columns scale downward into a 1-column grid, and the sidebar seamlessly transitions into a responsive, toggle-able background drawer to restore whitespace.

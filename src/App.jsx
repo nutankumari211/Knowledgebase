@@ -3,38 +3,51 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import KnowledgeBaseList from './components/KnowledgeBase';
 import CreateNewModal from './components/KnowledgeBase/CreateNewModal';
-import { baseCards as initialCards } from './components/KnowledgeBase/data';
+import { Toaster } from 'react-hot-toast';
+import { useKnowledgeBase } from './hooks/useKnowledgeBase.jsx';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('Knowledge Base');
-  const [cards, setCards] = useState(initialCards);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
+  const { cards, editCardData, setEditCardData, handleCreateOrUpdate, handleDeleteCard } = useKnowledgeBase();
+
+  const openCreateModal = () => {
+    setEditCardData(null);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-[#F9FAFB]">
-      <Header 
-        onCreateNewClick={() => setIsModalOpen(true)} 
+      <Toaster />
+      <Header
+        onCreateNewClick={openCreateModal}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         onMenuToggle={() => setIsMobileSidebarOpen(true)}
       />
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar 
-          activeTab={activeTab} 
+        <Sidebar
+          activeTab={activeTab}
           onTabChange={(tab) => {
             setActiveTab(tab);
             setIsMobileSidebarOpen(false);
-          }} 
+          }}
           isOpen={isMobileSidebarOpen}
           onClose={() => setIsMobileSidebarOpen(false)}
         />
         <main className="flex-1 overflow-hidden flex flex-col">
           {activeTab === 'Knowledge Base' ? (
-            <KnowledgeBaseList 
+            <KnowledgeBaseList
               cards={cards}
-              onCreateNewClick={() => setIsModalOpen(true)} 
+              onCreateNewClick={openCreateModal}
+              onEditClick={(card) => {
+                setEditCardData(card);
+                setIsModalOpen(true);
+              }}
+              onDeleteClick={handleDeleteCard}
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
             />
@@ -46,11 +59,18 @@ function App() {
           )}
         </main>
       </div>
-      
-      <CreateNewModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onAddCard={(newCard) => setCards([newCard, ...cards])}
+
+      <CreateNewModal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setEditCardData(null);
+        }}
+        onSubmit={(data) => {
+          handleCreateOrUpdate(data);
+          setIsModalOpen(false);
+        }}
+        editData={editCardData}
       />
     </div>
   );
