@@ -1,6 +1,3 @@
-# Knowledge Base UI
-
-Hey! This is a React-based replica of the Knowledge Base dashboard design. The goal was to build a pixel-perfect, highly responsive interface using modern React and Tailwind CSS, while keeping the folder structure thoroughly scalable and cleanly abstracted.
 
 ## Getting Started
 
@@ -15,13 +12,11 @@ To get the project running locally, just follow these quick steps:
    ```bash
    npm run dev
    ```
-4. Open the `localhost` link provided in your terminal (usually `http://localhost:5173`)!
+4. Open the `localhost` link provided in your terminal (`http://localhost:5173`)!
 
 ---
 
-## Technical Highlights (For Reviewers)
-
-To make reviewing the repository code architecture easier, here is a breakdown of the core decisions and functionalities implemented to ensure it meets senior-level scaling standards:
+## Technical Highlights
 
 ### 1. Separation of Concerns (Custom Hooks)
 I completely decoupled the data layer from the presentation layer. 
