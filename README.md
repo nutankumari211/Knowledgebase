@@ -36,6 +36,6 @@ The UI isn't just a static markup mockup—it flawlessly simulates a live databa
 - **Live Search & Filtering**: The primary search bar works in real-time. Typing instantly recalculates the data flow, filtering the active grid by both Title and Description.
 - **Mathematical Pagination**: The pagination component mathematically calibrates based on the active dataset length. If you add new items, it accurately calculates grid subsets, updates the row counts, and unlocks the "next page" arrows only when mathematically applicable.
 
-### 4. Pixel-Perfect Responsiveness & Aesthetics
+### 4. UI
 - Styling maps precisely to the provided Figma documentation, strictly utilizing the exact requested design hex codes (Primary `#4F46E5`, Secondary `#1E1B4B`) set natively into the Tailwind theme configuration.
 - The UI is unconditionally fluid. As the browser shrinks to mobile specifications, the flex columns scale downward into a 1-column grid, and the sidebar seamlessly transitions into a responsive, toggle-able background drawer to restore whitespace.
