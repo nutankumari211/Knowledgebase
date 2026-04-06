@@ -1,4 +1,4 @@
-
+Deployed Link - https://knowledgebase-lilac-eight.vercel.app/
 ## Getting Started
 
 To get the project running locally, just follow these quick steps:
@@ -15,6 +15,16 @@ To get the project running locally, just follow these quick steps:
 4. Open the `localhost` link provided in your terminal (`http://localhost:5173`)!
 
 ---
+
+## Screenshots of UI 
+
+<img width="1908" height="957" alt="Screenshot 2026-04-06 140632" src="https://github.com/user-attachments/assets/1ebef9ef-6377-402b-9084-31230739848a" />
+<img width="1919" height="873" alt="Screenshot 2026-04-06 140645" src="https://github.com/user-attachments/assets/8a8062e4-7602-4683-989e-a01a09a90321" />
+<img width="1919" height="880" alt="Screenshot 2026-04-06 140850" src="https://github.com/user-attachments/assets/c1a24434-cd3c-4b00-901b-7f1b1bea08ef" />
+<img width="1912" height="869" alt="Screenshot 2026-04-06 140915" src="https://github.com/user-attachments/assets/26a92a3a-6f07-49c5-8390-1273c121cc5d" />
+<img width="1910" height="889" alt="Screenshot 2026-04-06 141016" src="https://github.com/user-attachments/assets/7c78556b-b878-4842-9a92-1afe730ae43f" />
+<img width="1914" height="853" alt="Screenshot 2026-04-06 141107" src="https://github.com/user-attachments/assets/4c4e8290-8c73-42ad-9ae8-c80ab6a1348b" />
+<img width="1919" height="878" alt="Screenshot 2026-04-06 141131" src="https://github.com/user-attachments/assets/2cde8490-c49e-4267-9d71-fc796f8c5f97" />
 
 ## Technical Highlights
 
