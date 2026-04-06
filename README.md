@@ -16,7 +16,7 @@ To get the project running locally, just follow these quick steps:
 
 ---
 
-## Screenshots of UI 
+## Screenshots of UI  -> Knowledge Base page, Create , Update etc
 
 <img width="1908" height="957" alt="Screenshot 2026-04-06 140632" src="https://github.com/user-attachments/assets/1ebef9ef-6377-402b-9084-31230739848a" />
 <img width="1919" height="873" alt="Screenshot 2026-04-06 140645" src="https://github.com/user-attachments/assets/8a8062e4-7602-4683-989e-a01a09a90321" />
